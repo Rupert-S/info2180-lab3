@@ -26,6 +26,15 @@ function spaceClass(space, currentClass){
 function changeClass(){
   circTurn = !circTurn
 }
+blocks.forEach(function(elem, index, list) { 
+  elem.addEventListener('mouseover',function(e){
+      e.target.classList.add('hover');
+  });
+
+  elem.addEventListener('mouseout',function(e){
+      e.target.classList.remove('hover');
+   });
+});
 }
 
 
