@@ -20,6 +20,7 @@ function windowLoad(){
 
 blocks.forEach(elem => {elem.addEventListener('click', isClick)
 })
+// Handles each click
 function isClick(e){
   const space = e.target
   const currentClass = circTurn ? circ : x
@@ -37,17 +38,20 @@ function isClick(e){
   console.log(blocks[17].textContent)
 }
 
+// Places a Class
 function spaceClass(space, currentClass){
   space.textContent = currentClass;
   console.log('button clicked');
   space.classList.add(currentClass)
 }
 
+//Change Turn
 function changeClass(){
   circTurn = !circTurn
 }
 
-blocks.forEach(function(elem, index, list) { 
+// Hover function
+blocks.forEach(function(elem) { 
   elem.addEventListener('mouseover',function(e){
       e.target.classList.add('hover');
   });
@@ -57,6 +61,7 @@ blocks.forEach(function(elem, index, list) {
    });
 });
 
+  // Checking for a Win
   const winWays = (fBox, sBox, tBox) => {
     let fBoxOwner = fBox.textContent;
     let sBoxOwner = sBox.textContent;
@@ -99,6 +104,13 @@ blocks.forEach(function(elem, index, list) {
     return diagonalWinner() || (rowWinner() || columnWinner());
   };
 
+  //Resetting game
+  const newGame = document.querySelector('.btn');
+  const refreshWindow = () => {
+    location.reload();
+  }
+  newGame.addEventListener('click', refreshWindow)
 }
+
 
 
