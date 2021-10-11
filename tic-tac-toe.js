@@ -6,16 +6,6 @@ function windowLoad(){
   
   const x = 'X'
   const circ = 'O'
-  const WINNING_WAYS = [
-    [0,1,2], 
-    [3,4,5], 
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8], 
-    [2,4,6]
-  ];
   let circTurn
 
 blocks.forEach(elem => {elem.addEventListener('click', isClick)
@@ -24,18 +14,11 @@ blocks.forEach(elem => {elem.addEventListener('click', isClick)
 function isClick(e){
   const space = e.target
   const currentClass = circTurn ? circ : x
-  spaceClass(space, currentClass)
-  changeClass()
-  const winner = getWinner();
-  console.log(blocks[1].textContent)
-  console.log(blocks[3].textContent)
-  console.log(blocks[5].textContent)
-  console.log(blocks[7].textContent)
-  console.log(blocks[9].textContent)
-  console.log(blocks[11].textContent)
-  console.log(blocks[13].textContent)
-  console.log(blocks[15].textContent)
-  console.log(blocks[17].textContent)
+  if(space.textContent != x && space.textContent != circ){
+    spaceClass(space, currentClass)
+    changeClass()
+  }
+  const winner = getWinner();  
 }
 
 // Places a Class
