@@ -25,7 +25,16 @@ function isClick(e){
   const currentClass = circTurn ? circ : x
   spaceClass(space, currentClass)
   changeClass()
-  whoWon()
+  const winner = getWinner();
+  console.log(blocks[1].textContent)
+  console.log(blocks[3].textContent)
+  console.log(blocks[5].textContent)
+  console.log(blocks[7].textContent)
+  console.log(blocks[9].textContent)
+  console.log(blocks[11].textContent)
+  console.log(blocks[13].textContent)
+  console.log(blocks[15].textContent)
+  console.log(blocks[17].textContent)
 }
 
 function spaceClass(space, currentClass){
@@ -48,29 +57,48 @@ blocks.forEach(function(elem, index, list) {
    });
 });
 
-//checking for a winner
- function whoWon(){
-  let roundWon = false;
-  let gameState = [];
-  for (let i = 0; i<= 7; i++){
-    const winCond = WINNING_WAYS[i];
-    const a = blocks[winCond[0]];
-    const b = blocks[winCond[1]];
-    const c = blocks[winCond[2]];
-    gameState += [a.textContent, b.textContent, c.textContent]
-    if (a.textContent == '' || b.textContent =='' || c.textContent ==''){
-      continue;
+  const winWays = (fBox, sBox, tBox) => {
+    let fBoxOwner = fBox.textContent;
+    let sBoxOwner = sBox.textContent;
+    let tBoxOwner = tBox.textContent;
+
+    if ((fBoxOwner === sBoxOwner) && (sBoxOwner === tBoxOwner)){
+      if (fBoxOwner === 'X'){
+        document.getElementById("status").innerHTML = "Congratulations! X is the Winner!";
+        document.getElementById("status").classList.add('you-won');
+      } else if (fBoxOwner === 'O'){
+        document.getElementById("status").innerHTML = "Congratulations! O is the Winner!";
+        document.getElementById("status").classList.add('you-won');
+      }
     }
-    if(a.textContent != '' && a.textContent == b.textContent && b.textContent == c.textContent && a.textContent == c.textContent){
-      roundWon = true;
-      console.log(gameState);
-      break;
-    }
-  }
-  if(roundWon){
-    console.log('winner') 
-  }
-}
+  };
+
+  const diagonalWinner = () => {
+    let leftDiag = winWays(blocks[1], blocks[9], blocks[17]);
+    let rightDiag = winWays(blocks[5], blocks[9], blocks[13]);
+
+    return leftDiag || rightDiag;
+  };
+
+  const columnWinner = () => {
+    let rightCol = winWays(blocks[5], blocks[11], blocks[17]);
+    let middleCol = winWays(blocks[3], blocks[9], blocks[15]);
+    let leftCol = winWays(blocks[1], blocks[7], blocks[13]);
+
+    return leftCol || (middleCol || rightCol);
+  };
+  const rowWinner = () => {
+    let topRow = winWays(blocks[1], blocks[3], blocks[5]);
+    let middleRow = winWays(blocks[7], blocks[9], blocks[11]);
+    let bottomRow = winWays(blocks[13], blocks[15], blocks[17]);
+
+    return topRow || (middleRow || bottomRow);
+  };
+
+  const getWinner = () => {
+    return diagonalWinner() || (rowWinner() || columnWinner());
+  };
+
 }
 
 
